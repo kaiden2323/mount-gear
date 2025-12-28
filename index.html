@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mount Gear — Peminjaman Alat Mendaki</title>
+  <link rel="stylesheet" href="peminjaman.css" />
+</head>
+<body>
+
+  <!-- OVERLAY -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>Mount Gear</h1>
+      <button class="darkmode-btn" onclick="toggleDarkMode()">Dark Mode</button>
+    </div>
+  </header>
+
+  <main class="main-wrap">
+
+    <!-- ================= USER PANEL ================= -->
+    <section class="card form-card" id="userPanel">
+      <h2>Peminjaman Alat Mendaki</h2>
+
+      <label for="nama">Nama Peminjam</label>
+      <input id="nama" type="text" placeholder="Nama lengkap" />
+
+      <label for="nohp">No. Handphone</label>
+      <input id="nohp" type="tel" placeholder="08xxxxxxxxxx" />
+
+      <label for="alat">Alat yang Dipinjam</label>
+      <input id="alat" type="text" placeholder="Pilih Alat" readonly />
+
+      <div class="row">
+        <div class="col">
+          <label for="tglPinjam">Tanggal Pinjam</label>
+          <input id="tglPinjam" type="date" />
+        </div>
+        <div class="col">
+          <label for="tglKembali">Tanggal Kembali</label>
+          <input id="tglKembali" type="date" />
+        </div>
+      </div>
+
+      <button onclick="simpanData()">Ajukan Peminjaman</button>
+    </section>
+
+    <!-- ================= ADMIN LOGIN ================= -->
+    <section class="card login-card" id="loginSection">
+      <h2>Login Admin</h2>
+      <input id="adminPass" type="password" placeholder="Password admin" />
+      <button onclick="loginAdmin()">Login</button>
+    </section>
+
+    <!-- ================= ADMIN PANEL ================= -->
+    <section class="card data-card hidden" id="dataPanel">
+      <h2>Data Peminjaman</h2>
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>No HP</th>
+            <th>Alat</th>
+            <th>Tgl Pinjam</th>
+            <th>Tgl Kembali</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- ================= POPUP PILIH ALAT ================= -->
+  <div id="popupAlat" class="popup hidden" role="dialog" aria-modal="true">
+    <div class="popup-content">
+      <h3>Pilih Alat Mendaki</h3>
+
+      <div id="listPopupAlat" class="popup-list"></div>
+
+      <div id="popupAdminControls" class="popup-admin-controls hidden"></div>
+
+      <div style="text-align:center;margin-top:14px;">
+        <button class="popup-close-btn" onclick="tutupPopup()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- ================= FIREBASE CONFIG ================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "ISI_DARI_FIREBASE",
+      authDomain: "ISI_DARI_FIREBASE",
+      projectId: "mount-gear",
+      storageBucket: "ISI_DARI_FIREBASE",
+      messagingSenderId: "ISI_DARI_FIREBASE",
+      appId: "ISI_DARI_FIREBASE"
+    };
+
+    window.app = initializeApp(firebaseConfig);
+    window.db = getFirestore(window.app);
+  </script>
+
+  <!-- ================= APP SCRIPT ================= -->
+  <script type="module" src="peminjaman.js"></script>
+
+</body>
+</html>
